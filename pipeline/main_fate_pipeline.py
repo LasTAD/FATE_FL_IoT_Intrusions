@@ -30,10 +30,12 @@ class dataset(object):
         ]
     }
     nsl_kdd = {
-        "guest": {"name": "nsl_kdd_train_guest", "namespace": "experiment"},
+        "guest": {"name": "nsl_kdd_train_1", "namespace": "experiment"},
         "host": [
-            {"name": "nsl_kdd_train_host", "namespace": "experiment"},
-            {"name": "nsl_kdd_train_host", "namespace": "experiment"}
+            {"name": "nsl_kdd_train_1", "namespace": "experiment"},
+            {"name": "nsl_kdd_train_2", "namespace": "experiment"},
+            {"name": "nsl_kdd_train_3", "namespace": "experiment"},
+            {"name": "nsl_kdd_train_4", "namespace": "experiment"}
         ]
     }
 

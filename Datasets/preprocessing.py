@@ -1,9 +1,4 @@
-import warnings
-
-warnings.filterwarnings("ignore")
-import itertools
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.metrics import confusion_matrix, accuracy_score, recall_score, precision_score, f1_score
 import numpy as np
 import pandas as pd
 
@@ -88,7 +83,8 @@ test_samples_length = len(testing_df)
 df = pd.concat([training_df, testing_df])
 df["Class"] = df.apply(label_attack, axis=1)
 
-# The old outcome field is dropped since it was replaced with the Class field, the difficulty field will be dropped as well.
+# The old outcome field is dropped since it was replaced with the Class field,
+# the difficulty field will be dropped as well.
 df = df.drop("outcome", axis=1)
 df = df.drop("difficulty", axis=1)
 
@@ -138,9 +134,12 @@ training_df_federated = np.array_split(training_df, 4)
 i = 1
 for part in training_df_federated:
     part.to_csv('nsl_kdd_train_' + str(i) + '.csv')
-    i +=1
+    print(len(part))
+    i += 1
+print('\n')
 testing_df_federated = np.array_split(training_df, 4)
 i = 1
 for part in training_df_federated:
     part.to_csv('nsl_kdd_test_' + str(i) + '.csv')
-    i +=1
+    print(len(part))
+    i += 1
