@@ -1,0 +1,36 @@
+{
+  "data": [
+    {
+      "file": "examples/data/nsl_kdd_train_1.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "nus_wide_host_val",
+      "namespace": "experiment",
+      "count": 900
+    },
+    {
+      "file": "examples/data/nsl_kdd_train_2.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "nus_wide_host_val",
+      "namespace": "experiment",
+      "count": 900
+    },
+    {
+      "file": "examples/data/nsl_kdd_train_2.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "nus_wide_host_val",
+      "namespace": "experiment",
+      "count": 900
+    },
+    {
+      "file": "examples/data/nsl_kdd_train_2.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "nus_wide_host_val",
+      "namespace": "experiment",
+      "count": 900
+    }
+  ]
+}
