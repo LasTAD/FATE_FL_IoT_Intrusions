@@ -1,3 +1,18 @@
+#
+#  Copyright 2019 The FATE Authors. All Rights Reserved.
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#
 import argparse
 
 from pipeline.backend.pipeline import PipeLine
@@ -5,15 +20,16 @@ from pipeline.component.dataio import DataIO
 from pipeline.component.reader import Reader
 from pipeline.interface.data import Data
 from pipeline.utils.tools import load_job_config
-from pipeline.runtime.entity import Evaluation
 from pipeline.runtime.entity import JobParameters
 from pipeline.component.homo_nn import HomoNN
 from tensorflow.keras import optimizers
 from tensorflow.keras.layers import Dense
+from pipeline.component import Evaluation
 
 
+# noinspection PyPep8Naming
 class dataset(object):
-    nsk_kdd = {
+    breast = {
         "guest": {"name": "breast_homo_guest", "namespace": "experiment"},
         "host": [
             {"name": "breast_homo_host", "namespace": "experiment"},
@@ -29,13 +45,11 @@ class dataset(object):
     }
 
 
-def main(config="../../config.yaml", namespace="", ):
-    data = dataset.nsk_kdd
-
+def main(config="../../config.yaml", namespace=""):
     if isinstance(config, str):
         config = load_job_config(config)
     num_host = 2
-
+    data = dataset.vehicle
     guest_train_data = data["guest"]
     host_train_data = data["host"][:num_host]
     for d in [guest_train_data, *host_train_data]:
@@ -61,15 +75,13 @@ def main(config="../../config.yaml", namespace="", ):
                        early_stop={"early_stop": "diff", "eps": 0.0001})
     homo_nn_0.add(Dense(units=5, input_shape=(18,), activation="relu"))
     homo_nn_0.add(Dense(units=4, activation="sigmoid"))
-    homo_nn_0.compile(optimizer=optimizers.Adam(learning_rate=0.05), metrics=["accuracy"],
-                      loss="categorical_crossentropy")
+    homo_nn_0.compile(optimizer=optimizers.Adam(learning_rate=0.05), metrics=["accuracy"], loss="categorical_crossentropy")
 
     evaluation_0 = Evaluation(name="evaluation_0", eval_type="multi")
 
     pipeline.add_component(reader_0)
     pipeline.add_component(dataio_0, data=Data(data=reader_0.output.data))
     pipeline.add_component(homo_nn_0, data=Data(train_data=dataio_0.output.data))
-
     pipeline.compile()
     job_parameters = JobParameters(backend=config.backend, work_mode=config.work_mode)
     pipeline.fit(job_parameters)
@@ -79,8 +91,7 @@ def main(config="../../config.yaml", namespace="", ):
     # predict
     predict_pipeline = PipeLine()
     predict_pipeline.add_component(reader_0)
-    predict_pipeline.add_component(pipeline,
-                                   data=Data(predict_input={pipeline.dataio_0.input.data: reader_0.output.data}))
+    predict_pipeline.add_component(pipeline, data=Data(predict_input={pipeline.dataio_0.input.data: reader_0.output.data}))
     predict_pipeline.add_component(evaluation_0, data=Data(data=pipeline.homo_nn_0.output.data))
     # run predict model
     predict_pipeline.predict(job_parameters)
