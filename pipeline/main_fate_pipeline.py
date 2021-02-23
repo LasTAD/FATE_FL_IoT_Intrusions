@@ -36,14 +36,14 @@ class dataset(object):
             {"name": "nsl_kdd_train_2", "namespace": "experiment"},
             {"name": "nsl_kdd_train_3", "namespace": "experiment"},
             {"name": "nsl_kdd_train_4", "namespace": "experiment"}
-        ]
+        ],
+        "label": "Class"
     }
 
 
-def main(config="../../config.yaml", namespace=""):
+def main(config="config.yaml", namespace="", num_host=4):
     if isinstance(config, str):
         config = load_job_config(config)
-    num_host = 1
     data = dataset.nsl_kdd
     guest_train_data = data["guest"]
     host_train_data = data["host"][:num_host]
@@ -63,16 +63,16 @@ def main(config="../../config.yaml", namespace=""):
 
     dataio_0 = DataIO(name="dataio_0", with_label=True)
     dataio_0.get_party_instance(role='guest', party_id=config.parties.guest[0]) \
-        .component_param(with_label=True, output_format="dense")
-    dataio_0.get_party_instance(role='host', party_id=hosts).component_param(with_label=True)
+        .component_param(with_label=True, output_format="dense", label_name='Class')
+    dataio_0.get_party_instance(role='host', party_id=hosts).component_param(with_label=True, label_name='Class')
 
     homo_nn_0 = HomoNN(name="homo_nn_0", encode_label=True, max_iter=15, batch_size=-1,
                        early_stop={"early_stop": "diff", "eps": 0.0001})
-    homo_nn_0.add(Dense(units=288, input_shape=(123,), activation="relu"))
+    homo_nn_0.add(Dense(units=288, input_shape=(122,), activation="relu"))
     homo_nn_0.add(Dense(units=2, activation="sigmoid"))
     homo_nn_0.compile(optimizer=optimizers.Adam(learning_rate=0.05), metrics=["accuracy"], loss="categorical_crossentropy")
 
-    evaluation_0 = Evaluation(name="evaluation_0", eval_type="multi")
+    evaluation_0 = Evaluation(name="evaluation_0", eval_type="binary")
 
     pipeline.add_component(reader_0)
     pipeline.add_component(dataio_0, data=Data(data=reader_0.output.data))
@@ -94,10 +94,10 @@ def main(config="../../config.yaml", namespace=""):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser("PIPELINE DEMO")
-    parser.add_argument("-config", type=str,
-                        help="config file")
+    parser.add_argument("-config", type=str, help="config file")
+    parser.add_argument("-num_host", type=int)
     args = parser.parse_args()
     if args.config is not None:
-        main(args.config)
+        main(args.config, args.num_host)
     else:
         main()

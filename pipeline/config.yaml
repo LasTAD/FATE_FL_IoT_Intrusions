@@ -1,0 +1,16 @@
+parties: # parties default id
+  guest:
+    - 6666
+  host:
+    - 9997
+    - 9998
+    - 9999
+    - 10000
+  arbiter:
+    - 6666
+
+backend: 0 # 0 for eggroll, or 1 for spark
+
+work_mode: 0 # 0 for standalone, or 1 for cluster
+
+data_base_dir: "/data/projects/fate" # path to project base where data is located

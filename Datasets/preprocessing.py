@@ -62,20 +62,20 @@ u2r_attacks = ["sqlattack", "buffer_overflow", "loadmodule", "perl", "rootkit", 
 probe_attacks = ["ipsweep", "nmap", "portsweep", "satan", "saint", "mscan"]
 
 # Our new labels
-classes = ["Normal", "Dos", "R2L", "U2R", "Probe"]
+classes = {"Normal": 0, "Dos": 1, "R2L": 2, "U2R": 3, "Probe":4}
 
 
 # Helper function to label samples to 5 classes
 def label_attack(row):
     if row["outcome"] in dos_attacks:
-        return classes[1]
+        return classes['Dos']
     if row["outcome"] in r2l_attacks:
-        return classes[2]
+        return classes['R2L']
     if row["outcome"] in u2r_attacks:
-        return classes[3]
+        return classes['U2R']
     if row["outcome"] in probe_attacks:
-        return classes[4]
-    return classes[0]
+        return classes['Probe']
+    return classes['Normal']
 
 
 # We combine the datasets temporarily to do the labeling
