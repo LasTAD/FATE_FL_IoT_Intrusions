@@ -62,7 +62,7 @@ u2r_attacks = ["sqlattack", "buffer_overflow", "loadmodule", "perl", "rootkit", 
 probe_attacks = ["ipsweep", "nmap", "portsweep", "satan", "saint", "mscan"]
 
 # Our new labels
-classes = {"Normal": 0, "Dos": 1, "R2L": 2, "U2R": 3, "Probe":4}
+classes = {"Normal": 0, "Dos": 1, "R2L": 2, "U2R": 3, "Probe": 4}
 
 
 # Helper function to label samples to 5 classes
@@ -126,20 +126,21 @@ for column in df.columns:
     elif not column == label_column:
         minmax_scale_values(training_df, testing_df, column)
 
-print(training_df.head(5))
-print(len(training_df))
-print(testing_df.head(5))
-print(len(testing_df))
+# print(training_df.head(5))
+# print(len(training_df))
+# print(testing_df.head(5))
+# print(len(testing_df))
 training_df_federated = np.array_split(training_df, 4)
 i = 1
 for part in training_df_federated:
     part.to_csv('nsl_kdd_train_' + str(i) + '.csv')
     print(len(part))
+
     i += 1
 print('\n')
-testing_df_federated = np.array_split(training_df, 4)
+testing_df_federated = np.array_split(testing_df, 4)
 i = 1
-for part in training_df_federated:
+for part in testing_df_federated:
     part.to_csv('nsl_kdd_test_' + str(i) + '.csv')
     print(len(part))
     i += 1
