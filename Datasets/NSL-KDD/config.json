@@ -1,0 +1,68 @@
+{
+  "data": [
+    {
+      "file": "/fate/myproject/data/nsl_kdd_train_1.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "nsl_kdd_train_1",
+      "namespace": "experiment",
+      "count": 31494
+    },
+    {
+      "file": "/fate/myproject/data/nsl_kdd_train_2.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "nsl_kdd_train_2",
+      "namespace": "experiment",
+      "count": 31493
+    },
+    {
+      "file": "/fate/myproject/data/nsl_kdd_train_3.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "nsl_kdd_train_3",
+      "namespace": "experiment",
+      "count": 31493
+    },
+    {
+      "file": "/fate/myproject/data/nsl_kdd_train_4.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "nsl_kdd_train_4",
+      "namespace": "experiment",
+      "count": 31493
+    },
+    {
+      "file": "/fate/myproject/data/nsl_kdd_test_1.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "nsl_kdd_test_1",
+      "namespace": "experiment",
+      "count": 5636
+    },
+    {
+      "file": "/fate/myproject/data/nsl_kdd_test_2.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "nsl_kdd_test_2",
+      "namespace": "experiment",
+      "count": 5636
+    },
+    {
+      "file": "/fate/myproject/data/nsl_kdd_test_3.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "nsl_kdd_test_3",
+      "namespace": "experiment",
+      "count": 5636
+    },
+    {
+      "file": "/fate/myproject/data/nsl_kdd_test_4.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "nsl_kdd_test_4",
+      "namespace": "experiment",
+      "count": 5636
+    }
+  ]
+}
