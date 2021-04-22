@@ -1,0 +1,52 @@
+{
+  "data": [
+    {
+      "file": "/fate/myproject/data/SWaT/swat_phys_test_p2.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "swat_phys_test_p2",
+      "namespace": "experiment_horizontal",
+      "count": 189344
+    },
+    {
+      "file": "/fate/myproject/data/SWaT/swat_phys_test_p4.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "swat_phys_test_p4",
+      "namespace": "experiment_horizontal",
+      "count": 189344
+    },
+    {
+      "file": "/fate/myproject/data/SWaT/swat_phys_test_p5.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "swat_phys_test_p5",
+      "namespace": "experiment_horizontal",
+      "count": 189344
+    },
+    {
+      "file": "/fate/myproject/data/SWaT/swat_phys_train_p2.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "swat_phys_train_p2",
+      "namespace": "experiment_horizontal",
+      "count": 757375
+    },
+    {
+      "file": "/fate/myproject/data/SWaT/swat_phys_train_p4.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "swat_phys_train_p4",
+      "namespace": "experiment_horizontal",
+      "count": 757375
+    },
+    {
+      "file": "/fate/myproject/data/SWaT/swat_phys_train_p5.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "swat_phys_train_p5",
+      "namespace": "experiment_horizontal",
+      "count": 757375
+    }
+  ]
+}

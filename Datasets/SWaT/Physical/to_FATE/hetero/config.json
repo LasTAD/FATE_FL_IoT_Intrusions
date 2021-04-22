@@ -1,0 +1,116 @@
+{
+  "data": [
+    {
+      "file": "/fate/dip/data/phys/swat_phys_test_label.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "swat_phys_test_label",
+      "namespace": "experiment_vertical",
+      "count": 189344
+    },
+    {
+      "file": "/fate/dip/data/phys/swat_phys_test_p1.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "swat_phys_test_p1",
+      "namespace": "experiment_vertical",
+      "count": 189344
+    },
+    {
+      "file": "/fate/dip/data/phys/swat_phys_test_p2.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "swat_phys_test_p2",
+      "namespace": "experiment_vertical",
+      "count": 189344
+    },
+    {
+      "file": "/fate/dip/data/phys/swat_phys_test_p3.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "swat_phys_test_p3",
+      "namespace": "experiment_vertical",
+      "count": 189344
+    },
+    {
+      "file": "/fate/dip/data/phys/swat_phys_test_p4.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "swat_phys_test_p4",
+      "namespace": "experiment_vertical",
+      "count": 189344
+    },
+    {
+      "file": "/fate/dip/data/phys/swat_phys_test_p5.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "swat_phys_test_p5",
+      "namespace": "experiment_vertical",
+      "count": 189344
+    },
+    {
+      "file": "/fate/dip/data/phys/swat_phys_test_p6_label.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "swat_phys_test_p6_label",
+      "namespace": "experiment_vertical",
+      "count": 189344
+    },
+    {
+      "file": "/fate/dip/data/phys/swat_phys_train_label.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "swat_phys_train_label",
+      "namespace": "experiment_vertical",
+      "count": 757375
+    },
+    {
+      "file": "/fate/dip/data/phys/swat_phys_train_p1.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "swat_phys_train_p1",
+      "namespace": "experiment_vertical",
+      "count": 757375
+    },
+    {
+      "file": "/fate/dip/data/phys/swat_phys_train_p2.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "swat_phys_train_p2",
+      "namespace": "experiment_vertical",
+      "count": 757375
+    },
+    {
+      "file": "/fate/dip/data/phys/swat_phys_train_p3.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "swat_phys_train_p3",
+      "namespace": "experiment_vertical",
+      "count": 757375
+    },
+    {
+      "file": "/fate/dip/data/phys/swat_phys_train_p4.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "swat_phys_train_p4",
+      "namespace": "experiment_vertical",
+      "count": 757375
+    },
+    {
+      "file": "/fate/dip/data/phys/swat_phys_train_p5.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "swat_phys_train_p5",
+      "namespace": "experiment_vertical",
+      "count": 757375
+    },
+    {
+      "file": "/fate/dip/data/phys/swat_phys_train_p6_label.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "swat_phys_train_p6_label",
+      "namespace": "experiment_vertical",
+      "count": 757375
+    }
+  ]
+}
