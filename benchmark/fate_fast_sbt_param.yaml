@@ -1,0 +1,15 @@
+data_guest:
+  train: "swat_phys_train_p6_label"
+  test: "swat_phys_test_p6_label.csv"
+data_host:
+  train:
+    - "swat_phys_train_p1"
+    - "swat_phys_train_p2"
+    - "swat_phys_train_p3"
+    - "swat_phys_train_p4"
+  test:
+    - "swat_phys_test_p1"
+    - "swat_phys_test_p2"
+    - "swat_phys_test_p3"
+    - "swat_phys_test_p4"
+label: "Normal/Attack"

@@ -68,7 +68,7 @@ def main(config="config.yaml", namespace="", num_host=4):
 
     # secure boost component
     hetero_secure_boost_0 = HeteroSecureBoost(name="hetero_secure_boost_0",
-                                              num_trees=3,
+                                              num_trees=15,
                                               task_type="classification",
                                               objective_param={"objective": "cross_entropy"},
                                               encrypt_param={"method": "iterativeAffine"},

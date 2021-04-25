@@ -8,16 +8,22 @@ from pipeline.component.reader import Reader
 from pipeline.interface.data import Data
 from pipeline.component.evaluation import Evaluation
 from pipeline.interface.model import Model
+from pipeline.utils.tools import JobConfig
 
 from pipeline.utils.tools import load_job_config
 from pipeline.runtime.entity import JobParameters
-import datasets
+
+from federatedml.evaluation.metrics import regression_metric, classification_metric
+from fate_test.utils import extract_data, parse_summary_result
 
 
-def main(config="config.yaml", namespace="", num_host=4):
+def main(config="../config.yaml", param="./fate_fast_sbt_param.yaml", namespace="", num_host=4):
     # obtain config
     if isinstance(config, str):
         config = load_job_config(config)
+
+    if isinstance(param, str):
+        param = JobConfig.load_from_file(param)
 
     backend = config.backend
     work_mode = config.work_mode
@@ -26,16 +32,14 @@ def main(config="config.yaml", namespace="", num_host=4):
     guest = parties.guest[0]
     hosts = config.parties.host[:num_host]
 
-    # data sets
-    data = datasets.dataset.swat_ait_hetero
-    label = data['label']
-    guest_train_data = data['train']["guest"]
-    host_train_data = data['train']["host"][:num_host]
+    label = param['label']
+    guest_train_data = param['data_guest']['train']
+    host_train_data = param['data_host']["train"][:num_host]
     for d in [guest_train_data, *host_train_data]:
         d["namespace"] = f"{d['namespace']}{namespace}"
 
-    guest_test_data = data['test']["guest"]
-    host_test_data = data['test']["host"][:num_host]
+    guest_test_data = param['data_guest']['test']
+    host_test_data = param['data_host']["test"][:num_host]
     for d in [guest_test_data, *host_test_data]:
         d["namespace"] = f"{d['namespace']}{namespace}"
 
@@ -67,8 +71,8 @@ def main(config="config.yaml", namespace="", num_host=4):
     intersect_1 = Intersection(name="intersection_1")
 
     # secure boost component
-    hetero_fast_secure_boost_0 = HeteroFastSecureBoost(name="hetero_fast_secure_boost_0",
-                                                       num_trees=15,
+    hetero_fast_secure_boost_0 = HeteroFastSecureBoost(name="hetero_secure_boost_0",
+                                                       num_trees=10,
                                                        tree_num_per_party=1,
                                                        task_type="classification",
                                                        objective_param={"objective": "cross_entropy"},
@@ -93,29 +97,26 @@ def main(config="config.yaml", namespace="", num_host=4):
     job_parameters = JobParameters(backend=backend, work_mode=work_mode,
                                    adaptation_parameters={'task_cores_per_node': 2, 'request_task_cores': 2})
     pipeline.fit(job_parameters)
-    pipeline.dump("fast_gbdt_model.pkl")
 
-    print("fitting hetero secureboost done, result:")
-    print(pipeline.get_component("hetero_secure_boost_0").get_summary())
-    # pipeline = PipeLine.load_model_from_file('pipeline_saved.pkl')
-    print('start to predict')
-
-
-    # predict
-    # deploy required components
-    pipeline.deploy_component([datatr_0, intersect_0, hetero_fast_secure_boost_0, evaluation_0])
-
-    predict_pipeline = PipeLine()
-    # add data reader onto predict pipeline
-    predict_pipeline.add_component(reader_0)
-    # add selected components from train pipeline onto predict pipeline
-    # specify data source
-    predict_pipeline.add_component(pipeline,
-                                   data=Data(predict_input={pipeline.datatr_0.input.data: reader_0.output.data}))
-
-    # run predict model
-    predict_pipeline.predict(job_parameters)
-
+    sbt_0_data = pipeline.get_component("hetero_fast_sbt_0").get_output_data().get("data")
+    sbt_1_data = pipeline.get_component("hetero_fast_sbt_1").get_output_data().get("data")
+    sbt_0_score = extract_data(sbt_0_data, "predict_result")
+    sbt_0_label = extract_data(sbt_0_data, "label")
+    sbt_1_score = extract_data(sbt_1_data, "predict_result")
+    sbt_1_label = extract_data(sbt_1_data, "label")
+    sbt_0_score_label = extract_data(sbt_0_data, "predict_result", keep_id=True)
+    sbt_1_score_label = extract_data(sbt_1_data, "predict_result", keep_id=True)
+    metric_summary = parse_summary_result(pipeline.get_component("evaluation_0").get_summary())
+    metric_sbt = {
+        "score_diversity_ratio": classification_metric.Distribution.compute(sbt_0_score_label, sbt_1_score_label),
+        "ks_2samp": classification_metric.KSTest.compute(sbt_0_score, sbt_1_score),
+        "mAP_D_value": classification_metric.AveragePrecisionScore().compute(sbt_0_score, sbt_1_score, sbt_0_label,
+                                                                             sbt_1_label)}
+    metric_summary["distribution_metrics"] = {"hetero_fast_sbt": metric_sbt}
+    data_summary = {"train": {"guest": guest_train_data["name"], "host": host_train_data["name"]},
+                    "test": {"guest": guest_train_data["name"], "host": host_train_data["name"]}
+                    }
+    return data_summary, metric_summary
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser("PIPELINE DEMO")

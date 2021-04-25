@@ -1,0 +1,4 @@
+data_guest: "/fate/dip/data/experiment_full/swat_phys_test.csv"
+data_host: "/fate/dip/data/experiment_full/swat_phys_train.csv"
+idx: "id"
+label_name: "Normal/Attack"

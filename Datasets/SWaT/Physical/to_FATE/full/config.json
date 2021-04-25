@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "file": "/fate/dip/data/phys/swat_phys_test.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "swat_phys_test",
+      "namespace": "experiment_full",
+      "count": 189344
+    },
+    {
+      "file": "/fate/dip/data/phys/swat_phys_train.csv",
+      "head": 1,
+      "partition": 16,
+      "table_name": "swat_phys_train",
+      "namespace": "experiment_full",
+      "count": 757375
+    }
+  ]
+}
