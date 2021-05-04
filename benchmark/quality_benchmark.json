@@ -97,14 +97,14 @@
       "role": "guest"
     }
   ],
-    "fast_sbt-gbdt": {
+    "fast_sbt_gbdt": {
         "local": {
             "script": "./gbdt.py",
-            "conf": "./gbdt_config_reg.yaml"
+            "conf": "../config.yaml"
         },
         "FATE": {
             "script": "./fate-fast-sbt.py",
-            "conf": "../pipe/config.yaml"
+            "conf": "../config.yaml"
         },
         "compare_setting": {
             "relative_tol": 0.01

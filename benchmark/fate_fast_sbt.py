@@ -33,13 +33,13 @@ def main(config="../config.yaml", param="./fate_fast_sbt_param.yaml", namespace=
     hosts = config.parties.host[:num_host]
 
     label = param['label']
-    guest_train_data = param['data_guest']['train']
-    host_train_data = param['data_host']["train"][:num_host]
+    guest_train_data = param['train']['guest']
+    host_train_data = param['train']['host']
     for d in [guest_train_data, *host_train_data]:
         d["namespace"] = f"{d['namespace']}{namespace}"
 
-    guest_test_data = param['data_guest']['test']
-    host_test_data = param['data_host']["test"][:num_host]
+    guest_test_data = param['test']['guest']
+    host_test_data = param['test']['host']
     for d in [guest_test_data, *host_test_data]:
         d["namespace"] = f"{d['namespace']}{namespace}"
 
