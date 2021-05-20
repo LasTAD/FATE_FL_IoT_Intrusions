@@ -1,4 +1,0 @@
-data: "phys/swat_phys_train.csv"
-idx: "id"
-label_name: "Normal/Attack"
-data_base_dir: "/fate/dip/data"
