@@ -1,4 +1,0 @@
-data: "../Datasets/SWaT/Physical/to_FATE/hetero/swat_phys_train_p6_label.csv"
-idx: "id"
-label_name: "Normal/Attack"
-#data_base_dir: "/fate/dip/data"
