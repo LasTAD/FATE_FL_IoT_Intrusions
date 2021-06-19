@@ -1,32 +1,34 @@
 import argparse
 import os
+
 import pandas as pd
-from sklearn.metrics import roc_auc_score, precision_score, accuracy_score, recall_score
-from sklearn.ensemble.gradient_boosting import GradientBoostingClassifier
-from pipeline.utils.tools import JobConfig
+from sklearn.ensemble import GradientBoostingClassifier
+
+from sklearn.metrics import roc_auc_score, accuracy_score
 
 
 def main(config="../config.yaml", param="gbdt_conf.yaml"):
 
-    if isinstance(param, str):
-        param = JobConfig.load_from_file(param)
+    # if isinstance(param, str):
+    #     param = JobConfig.load_from_file(param)
+    data = '../Datasets/SWaT/Physical/to_FATE/hetero/swat_phys_train_p6_label.csv'
+    label_name = 'Normal/Attack'
+    # data = param["data"]
+    # label_name = param["label_name"]
 
-    data = param["data"]
-    label_name = param["label_name"]
-
-    print('config is {}'.format(config))
-    if isinstance(config, str):
-        config = JobConfig.load_from_file(config)
-        data_base_dir = config["data_base_dir"]
-        print('data base dir is', data_base_dir)
-    else:
-        data_base_dir = config.data_base_dir
+    # print('config is {}'.format(config))
+    # if isinstance(config, str):
+    #     config = JobConfig.load_from_file(config)
+    #     data_base_dir = config["data_base_dir"]
+    #     print('data base dir is', data_base_dir)
+    # else:
+    #     data_base_dir = config.data_base_dir
 
     # prepare data
-    df = pd.read_csv(os.path.join(data_base_dir, data))
+    df = pd.read_csv(os.path.join(data))
     y = df[label_name]
     X = df.drop(label_name, axis=1)
-    clf = GradientBoostingClassifier(random_state=0, n_estimators=120 if 'epsilon' in data else 10)
+    clf = GradientBoostingClassifier(random_state=0, n_estimators=120 if 'epsilon' in data else 1)
     clf.fit(X, y)
     y_prob = clf.predict(X)
 
