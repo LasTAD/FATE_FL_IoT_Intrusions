@@ -11,10 +11,10 @@ allEl = len(all_files)
 for filename in all_files:
     print('reading of ' + filename)
     df = pd.read_csv(filename, index_col='num', header=0, low_memory=False, error_bad_lines=False)
-    # df = df[pd.notnull(df['SCADA_Tag'])]
-    li.append(df[['SCADA_Tag', 'src', 'dst']].drop_duplicates())
+    li.append(df[['src', 'dst']])
     print('remaining ' + str(allEl - i) + ' files')
     i += 1
 frame = pd.concat(li, axis=0, ignore_index=True)
-frame[['SCADA_Tag', 'src', 'dst']].drop_duplicates()
+frame = frame.groupby(['src', 'dst']).size().reset_index().rename(columns={0: 'num'})
+frame.dropna(0, 'all', inplace=True)
 frame.to_csv('net_map.csv', index=False)
